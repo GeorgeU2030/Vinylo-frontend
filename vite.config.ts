@@ -1,7 +1,18 @@
+import path from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
-
+import compression from 'vite-plugin-compression'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), compression({
+      verbose: true,
+      algorithm: 'gzip',
+      threshold: 10240,
+      minRatio: 0.8,
+    })],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 })
