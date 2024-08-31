@@ -85,7 +85,7 @@ const ReviewCard = ({
       className={cn(
         "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
         // light styles
-        "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
+        "border-pome bg-light hover:bg-slate-300",
         // dark styles
         "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
       )}
@@ -106,7 +106,7 @@ const ReviewCard = ({
 
 export function MarqueeDemo() {
   return (
-    <div className="relative flex h-72 w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+    <div className="relative flex h-72 w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-pome md:shadow-xl">
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((review) => (
           <ReviewCard key={review.username} {...review} />
