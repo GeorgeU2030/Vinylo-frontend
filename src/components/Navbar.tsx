@@ -1,4 +1,9 @@
+import { useNavigate } from "react-router-dom"
+
 export default function Navbar() {
+
+  const navigate = useNavigate()
+
   return (
     <nav className="flex items-center justify-between h-20 bg-light">
         <div className="flex items-center">
@@ -8,10 +13,14 @@ export default function Navbar() {
             </h1>
         </div>    
         <div>
-            <button className="bg-light mr-2 lg:mr-4 px-6 py-2 border-pomeorange border-2 rounded-lg text-pomedark font-bold hover:bg-pomepink hover:text-light">
+            <button className="bg-light mr-2 lg:mr-4 px-6 py-2 border-pomeorange border-2 rounded-lg text-pomedark font-bold hover:bg-pomepink hover:text-light"
+            onClick={()=>navigate('/login')}
+            >
               Login
             </button>
-            <button className="bg-pomedark mr-2 lg:mr-4 px-4 py-2 border-pomeorange border-2 rounded-lg text-light font-bold hover:bg-pomepink hover:text-light">
+            <button className="bg-pomedark mr-2 lg:mr-4 px-4 py-2 border-pomeorange border-2 rounded-lg text-light font-bold hover:bg-pomepink hover:text-light"
+            onClick={()=>navigate('/register')}
+            >
               Sign Up
             </button>
         </div>

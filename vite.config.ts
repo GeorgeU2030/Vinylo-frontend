@@ -8,7 +8,7 @@ export default defineConfig({
       verbose: true,
       algorithm: 'gzip',
       threshold: 10240,
-      minRatio: 0.8,
+      
     })],
   resolve: {
     alias: {
