@@ -7,6 +7,7 @@ import { Register } from "@/interfaces/Register"
 import { signup } from "@/services/auth"
 import { useNavigate } from "react-router-dom"
 import { AxiosError } from "axios"
+import Clean from "@/components/icons/Clean"
 
 export default function SignUp() {
 
@@ -31,7 +32,7 @@ export default function SignUp() {
   const [error, setError] = useState<string>("")
 
   //hooks
-  const { register, handleSubmit, formState } = useForm()
+  const { register, handleSubmit, formState, reset } = useForm()
 
   //effects
   useEffect(() => {
@@ -112,20 +113,36 @@ export default function SignUp() {
               />
               <div>
               </div>
-              <input placeholder="URL Avatar" type="url" className="border border-pome rounded-lg py-1 px-2 w-5/6 lg:w-3/4 mt-6"
-              {...register("avatar", { required: true })}
-              onChange={(e) => setAvatar(e.target.value)}
-              />  
+              <div className="flex w-full justify-center">
+                <input placeholder="URL Avatar" type="url" 
+                className="border-b border-l border-t border-pome rounded-tl-lg rounded-bl-lg py-1 px-2 mt-6 w-3/4 md:w-4/5 lg:w-2/3 lg:pr-8 outline-none" 
+                {...register("avatar", { required: true,
+                  pattern: {
+                    value: /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/,
+                    message: "Must be a valid URL"
+                  }
+                })}
+                onChange={(e) => setAvatar(e.target.value)}
+                />  
+                <button 
+                  type="button" 
+                  onClick={() => {setAvatar(""); reset({avatar: ""})}} 
+                  className="bg-white p-0 lg:p-1 mt-6 pr-1 border-b border-r border-t border-pome rounded-tr-lg rounded-br-lg"
+                >
+                  <Clean />
+                </button>
+              </div>
+              
               {formState.errors.email ? (<p className="text-red-500 mt-2 text-center text-tiny">
               Email is not valid</p>) :
-              formState.errors.password ? (<p className="text-red-500 text-center text-tiny">
+              formState.errors.password ? (<p className="text-red-500 mt-2 text-center text-tiny">
               Password must be at least 7 characters</p>) :
-              formState.errors.name ? (<p className="text-red-500 text-center text-tiny">
+              formState.errors.name ? (<p className="text-red-500 mt-2 text-center text-tiny">
               Name must be at least 3 characters</p>) :
-              formState.errors.username ? (<p className="text-red-500 text-center text-tiny">
+              formState.errors.username ? (<p className="text-red-500 mt-2 text-center text-tiny">
               Username must be at least 3 characters</p>) :
-              formState.errors.avatar ? (<p className="text-red-500 text-center text-tiny">
-              Avatar is required</p>) : null}
+              formState.errors.avatar ? (<p className="text-red-500 mt-2 text-center text-tiny">
+              Avatar is not a url valid</p>) : null}
                 
               {error ? <p className="text-red-500 mt-2 text-center font-bold">{error}</p> : null} 
               <button 
