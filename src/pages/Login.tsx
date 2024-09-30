@@ -1,16 +1,41 @@
 import EyeIcon from "@/components/icons/EyeIcon"
 import EyeOffIcon from "@/components/icons/EyeOffIcon"
+import { LoginDto } from "@/interfaces/Login"
+import { login } from "@/services/auth"
+import { AxiosError } from "axios"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 export default function Login() {
+
+  //navigation
+  const navigate = useNavigate()
 
   //states
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [error, setError] = useState<string>("")
   //hooks
-  const { register } = useForm()
+  const { register, handleSubmit, formState } = useForm()
+
+  const onSubmit = handleSubmit(async (data) => {
+    try{
+      const form: LoginDto = {
+        email: data.email,
+        password: data.password
+      }
+      await login(form)
+      navigate("/home")
+    }catch(error){
+      if (error instanceof AxiosError && error.response) {
+        setError(error.response.data.name)
+      } else {
+        console.error("Unexpected error", error)
+      }
+    }
+  })
 
   return (
     <div className="flex flex-col lg:flex-row justify-center items-center h-screen">
@@ -23,7 +48,7 @@ export default function Login() {
           <h1 className="text-2xl font-bold mt-2">PomeMusic</h1>
         </div>
 
-        <form className="flex flex-col items-center w-full lg:w-3/5">
+        <form className="flex flex-col items-center w-full lg:w-3/5" method="post" onSubmit={onSubmit}>
           <input placeholder="Email" type="email" className="border border-pome rounded-lg py-2 px-2 w-5/6 mt-6"
               value={email}
               {...register("email", { required: true, pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/ })}
@@ -46,6 +71,12 @@ export default function Login() {
                   {showPassword ? <EyeOffIcon /> : <EyeIcon />}
                 </button>
           </div>
+          {formState.errors.email ? (<p className="text-red-500 mt-2 text-center text-sm">
+              Email is not valid</p>) :
+          formState.errors.password ? (<p className="text-red-500 mt-2 text-center text-sm">
+              Password must be at least 7 characters</p>) : null}
+
+          {error ? <p className="text-red-500 mt-2 text-center font-bold">{error}</p> : null} 
           <button type="submit" className="bg-pome hover:bg-pomepeach text-white py-2 px-4 w-1/3 font-bold rounded-lg mt-6">Login</button>
         </form>
       </section>

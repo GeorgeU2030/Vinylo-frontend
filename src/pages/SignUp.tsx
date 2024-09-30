@@ -3,7 +3,7 @@ import "../css/signup.css"
 import { useForm } from "react-hook-form"
 import EyeOffIcon from "@/components/icons/EyeOffIcon"
 import EyeIcon from "@/components/icons/EyeIcon"
-import { Register } from "@/interfaces/Register"
+import { RegisterDto } from "@/interfaces/Register"
 import { signup } from "@/services/auth"
 import { useNavigate } from "react-router-dom"
 import { AxiosError } from "axios"
@@ -44,7 +44,7 @@ export default function SignUp() {
   //functions
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const form: Register = {
+      const form: RegisterDto = {
         yearOfBirth: parseInt(data.year),
         email: data.email,
         password: data.password,
@@ -69,7 +69,7 @@ export default function SignUp() {
 
         <div className="py-6 px-6 my-6 bg-gradient-to-r from-light to-slate-300 w-11/12 lg:w-1/3 rounded-lg">
 
-            <form className="flex flex-col items-center" method="onSubmit" 
+            <form className="flex flex-col items-center" method="post" 
             onSubmit={onSubmit}>
               <h1 className="bg-gradient-to-r from-pomedark to-pomepink bg-clip-text text-transparent font-bold text-2xl">Sign Up</h1>
               

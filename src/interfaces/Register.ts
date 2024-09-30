@@ -1,4 +1,4 @@
-export interface Register {
+export interface RegisterDto {
     yearOfBirth: number;
     email: string;
     password: string;
