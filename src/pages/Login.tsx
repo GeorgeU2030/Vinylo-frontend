@@ -1,14 +1,18 @@
 import EyeIcon from "@/components/icons/EyeIcon"
 import EyeOffIcon from "@/components/icons/EyeOffIcon"
+import { AuthContext } from "@/context/AuthContext"
+import { AuthContextType } from "@/interfaces/AuthContextType"
 import { LoginDto } from "@/interfaces/Login"
 import { login } from "@/services/auth"
 import { AxiosError } from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 
 export default function Login() {
 
+  //context
+  const authContext = useContext<AuthContextType | null>(AuthContext);
   //navigation
   const navigate = useNavigate()
 
@@ -20,17 +24,20 @@ export default function Login() {
   //hooks
   const { register, handleSubmit, formState } = useForm()
 
+  const { loginContext } = authContext!
+
   const onSubmit = handleSubmit(async (data) => {
     try{
       const form: LoginDto = {
         email: data.email,
         password: data.password
       }
-      await login(form)
+      const response = await login(form)
+      loginContext(response.user)
       navigate("/home")
     }catch(error){
       if (error instanceof AxiosError && error.response) {
-        setError(error.response.data.name)
+        setError(error.response.data.message)
       } else {
         console.error("Unexpected error", error)
       }

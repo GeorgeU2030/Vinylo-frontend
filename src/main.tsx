@@ -5,11 +5,14 @@ import router from './routes/router'
 import {NextUIProvider} from '@nextui-org/react'
 
 import './index.css'
+import { AuthProvider } from './context/AuthContext'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <NextUIProvider>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </NextUIProvider>
   </StrictMode>,
 )

@@ -9,7 +9,7 @@ export const login = async (loginDto: LoginDto) => {
 }
 
 export const signup = async (registerDto: RegisterDto) => {
-    const response = await instance.post("/auth/register", registerDto)
+  const response = await instance.post("/auth/register", registerDto)
     return response.data
 }
 
