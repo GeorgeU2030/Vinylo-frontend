@@ -4,4 +4,5 @@ export interface AuthContextType {
     user: User | null;
     loginContext: (userData: User) => void;
     logoutContext: () => void;
+    isLoading: boolean;
 }

@@ -7,9 +7,10 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({element}: ProtectedRouteProps) => {
     const token = localStorage.getItem("token")
     if (!token) {
+        console.log("there is no token")
         return <Navigate to="/login" />
     }
-    return element
+    return <>{element}</>
 }
 
 export default ProtectedRoute

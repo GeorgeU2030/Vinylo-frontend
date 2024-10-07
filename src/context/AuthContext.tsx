@@ -10,12 +10,14 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     
     useEffect(()=>{
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
+        setIsLoading(false);
     }, []);
 
     const loginContext = (userData: User) => {
@@ -29,7 +31,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, loginContext, logoutContext }}>
+        <AuthContext.Provider value={{ user, loginContext, logoutContext, isLoading }}>
             {children}
         </AuthContext.Provider>
     )
