@@ -19,6 +19,9 @@ module.exports = {
       },
     },
     extend: {
+      width: {
+        "90": "90%",
+      },
       colors: {
         pome: "#D90429",
         pomepink: "#EF233C",

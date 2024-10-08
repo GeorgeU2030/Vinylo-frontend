@@ -21,10 +21,12 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-white h-screen w-screen flex flex-col">
+    <div className="bg-white min-h-screen w-full flex flex-col">
       <Menubar user={user}/>
-      <div className="flex-grow">
-        {/* <YoutubeGrid /> */}
+      <div className="flex-grow overflow-x-hidden">
+        <div className="container mx-auto px-4 py-8">
+          <YoutubeGrid /> 
+        </div>
       </div>
       <Footer/>
     </div>

@@ -13,6 +13,11 @@ export const signup = async (registerDto: RegisterDto) => {
     return response.data
 }
 
+export const validateToken = async (token: string) => {
+  const response = await instance.get("/auth/validate", { headers: { Authorization: `${token}` } })
+  return response.data
+}
+
 function setToken(token: string) {
     localStorage.setItem("token", token)
 }
