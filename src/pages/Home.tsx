@@ -1,34 +1,33 @@
-import Footer from "@/components/Footer";
-import Menubar from "@/components/Menubar";
+import CarouselComponent from "@/components/Carousel";
 import YoutubeGrid from "@/components/youtube/YoutubeGrid";
-import { AuthContext } from "@/context/AuthContext";
-import { AuthContextType } from "@/interfaces/AuthContextType";
-import { useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Video } from "@/interfaces/Video";
+import Layout from "@/layouts/Layout";
+import { fiveVideos } from "@/services/youtube";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  
-  const authContext = useContext<AuthContextType | null >(AuthContext);
 
-  const { user, isLoading } = authContext!;
-
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
-  if (!user) {
-    return <Navigate to="/login" />
-  }
+  const [videos, setVideos] = useState<Video[]>([]);
+  useEffect(() => {
+    fiveVideos().then((apiVideos) => {
+      const mappedVideos = apiVideos.map((video: any) => ({
+        id: video.id,
+        title: video.snippet.title,
+        description: video.snippet.description,
+        thumbnail: video.snippet.thumbnails.maxres.url,
+        channelTitle: video.snippet.channelTitle,
+        videoUrl: `https://www.youtube.com/embed/${video.id}`
+      }));
+      setVideos(mappedVideos);
+    });
+  }, []);
 
   return (
-    <div className="bg-white min-h-screen w-full flex flex-col">
-      <Menubar user={user}/>
-      <div className="flex-grow overflow-x-hidden">
-        <div className="container mx-auto px-4 py-8">
-          <YoutubeGrid /> 
-        </div>
+    <Layout menuActiveItem="home">
+      <div className="flex justify-center mb-6">
+        <CarouselComponent videos={videos} />
       </div>
-      <Footer/>
-    </div>
+      <YoutubeGrid />
+    </Layout>
   )
 }

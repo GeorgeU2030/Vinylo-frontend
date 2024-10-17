@@ -56,7 +56,7 @@ export default function Login() {
         </div>
 
         <form className="flex flex-col items-center w-full lg:w-3/5" method="post" onSubmit={onSubmit}>
-          <input placeholder="Email" type="email" className="border border-pome rounded-lg py-2 px-2 w-5/6 mt-6"
+          <input placeholder="Email" type="email" className="border-1 border-pome rounded-lg py-2 px-2 w-5/6 mt-6"
               value={email}
               {...register("email", { required: true, pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/ })}
               onChange={(e) => setEmail(e.target.value)}

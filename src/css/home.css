@@ -1,0 +1,17 @@
+.button {
+    background-color: #EDF2F4;
+    border: 2px solid #ff6140;
+    color: #bf0606;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+  
+.button:hover {
+    background-color: #ff6140;
+    color: #EDF2F4;
+    border-color: #ff6140;
+}
+  
+.button-active {
+    background-color: #ff6140;
+    color: #EDF2F4;
+}

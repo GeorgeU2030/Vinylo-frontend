@@ -2,13 +2,18 @@ import { User } from "@/interfaces/User"
 import { useState } from "react";
 import {Select, SelectItem} from "@nextui-org/select";
 import { User as UserIcon, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import '../css/home.css'
+
 
 interface MenubarProps {
-  user: User
+  user: User,
+  activeItem?: string
 }
 
-export default function Menubar({user}: MenubarProps) {
+export default function Menubar({user,activeItem}: MenubarProps) {
 
+    // Menu options for mobile devices
   const options = [
     {key: "home", label: "Home"},
     {key: "explore", label: "Explore"},
@@ -16,12 +21,25 @@ export default function Menubar({user}: MenubarProps) {
     {key: "awards", label: "Awards"},
     {key: "history", label: "History"}
   ]
+
+  // States
   const [menu, setMenu] = useState<boolean>(false); 
   const [selected, setSelected] = useState<string>(options[0].key);
 
+  // Navigation
+  const navigate = useNavigate();
+
+  // Toggle menu
   const toggleMenu = () => {
     setMenu(!menu);
   }
+
+  // button active class
+  const getButtonClass = (item: string) => {
+    return item === activeItem
+        ? 'button button-active'
+        : 'button';
+  };
 
 
   return (
@@ -34,13 +52,16 @@ export default function Menubar({user}: MenubarProps) {
         </div>
         <div className="flex items-center lg:mr-12 mr-1 w-2/3 lg:w-2/5 justify-end ">
             <div className="hidden lg:flex gap-2">
-                <button className="rounded-lg cursor-pointer bg-light hover:bg-pomedark hover:text-light border-2 border-pomepeach hover:border-2 hover:border-light text-pome font-bold px-4 py-2">
+                <button className={`rounded-lg cursor-pointer font-bold px-4 py-2 ${getButtonClass('explore')}`}
+                    onClick={()=>navigate('/explore')}
+                    type="button"
+                >
                     Explore
                 </button>
-                <button className="rounded-lg cursor-pointer bg-light hover:bg-pomedark hover:text-light border-2 border-pomepeach hover:border-2 hover:border-light text-pome font-bold px-4 py-2">
+                <button className={`rounded-lg cursor-pointer font-bold px-4 py-2 ${getButtonClass('ranking')}`}>
                     Ranking
                 </button>
-                <button className="rounded-lg cursor-pointer bg-light hover:bg-pomedark hover:text-light border-2 border-pomepeach hover:border-2 hover:border-light text-pome font-bold px-4 py-2">
+                <button className={`rounded-lg cursor-pointer font-bold px-4 py-2 ${getButtonClass('awards')}`}>
                     Awards
                 </button>
                 <button className="rounded-lg px-2 py-2 cursor-pointer">
@@ -56,7 +77,9 @@ export default function Menubar({user}: MenubarProps) {
                     className="w-32 md:w-44"
                 >
                     {options.map((option) => (
-                    <SelectItem key={option.key} isDisabled={selected === option.key}>
+                    <SelectItem key={option.key} isDisabled={selected === option.key}
+                        onClick={()=>navigate(`/${option.key}`)}
+                    >
                         {option.label}
                     </SelectItem>
                 ))}

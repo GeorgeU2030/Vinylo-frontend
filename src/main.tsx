@@ -5,6 +5,7 @@ import router from './routes/router'
 import {NextUIProvider} from '@nextui-org/react'
 
 import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { AuthProvider } from './context/AuthContext'
 
 createRoot(document.getElementById('root')!).render(

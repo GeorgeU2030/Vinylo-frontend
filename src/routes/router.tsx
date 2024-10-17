@@ -4,6 +4,7 @@ import Login from "@/pages/Login";
 import SignUp from "@/pages/SignUp";
 import Home from "@/pages/Home";
 import ProtectedRoute from "./security/ProctetedRoute";
+import Explore from "@/pages/Explore";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     {
         path: "/home",
         element: <ProtectedRoute element={<Home />} />
+    },
+    {
+        path: "/explore",
+        element: <ProtectedRoute element={<Explore/>} />
     }
 ]);
 

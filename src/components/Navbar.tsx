@@ -13,7 +13,7 @@ export default function Navbar() {
             </h1>
         </div>    
         <div>
-            <button className="bg-light mr-2 lg:mr-4 px-6 py-2 border-pomeorange border-2 rounded-lg text-pomedark font-bold hover:bg-pomepink hover:text-light"
+            <button className="bg-light mr-2 lg:mr-4 px-6 py-2 border-pomeorange border-2 rounded-lg text-pomedark font-bold hover:text-pomepeach"
             onClick={()=>navigate('/login')}
             >
               Login

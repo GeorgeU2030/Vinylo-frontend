@@ -14,12 +14,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
       const checkToken = async () => {
         const token = localStorage.getItem("token");
         if (token) {
-          const response = await validateToken(token);
-          console.log(response)
-          if (response == "isValid") {
-            setIsAuthenticated(true);
-            console.log("is authenticated")
-          } else {
+          try {
+            const response = await validateToken(token);
+            if (response == "isValid") {
+              setIsAuthenticated(true);
+            } 
+          } catch (error) {
+            console.log(error)
             localStorage.removeItem("token");
             setIsAuthenticated(false);
           }
