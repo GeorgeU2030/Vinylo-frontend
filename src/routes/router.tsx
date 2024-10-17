@@ -5,6 +5,7 @@ import SignUp from "@/pages/SignUp";
 import Home from "@/pages/Home";
 import ProtectedRoute from "./security/ProctetedRoute";
 import Explore from "@/pages/Explore";
+import YoutubeItem from "@/pages/YoutubeItem";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +27,14 @@ const router = createBrowserRouter([
     {
         path: "/explore",
         element: <ProtectedRoute element={<Explore/>} />
+    },
+
+    // video 
+    {
+        path: "/videoitem",
+        element: <ProtectedRoute element={<YoutubeItem />} />
     }
+    
 ]);
 
 export default router;

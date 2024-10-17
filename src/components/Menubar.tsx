@@ -44,9 +44,11 @@ export default function Menubar({user,activeItem}: MenubarProps) {
 
   return (
     <nav className="flex items-center justify-between min-h-20 bg-gradient-to-r from-pomepinkdark to-pomeorange">
-        <div className="flex items-center lg:px-2">
+        <div className="flex items-center lg:px-2 cursor-pointer"
+        onClick={()=>navigate('/home')}
+        >
             <img src="pome.webp" className="w-10 h-10 mx-2 lg:mx-3" />
-            <h1 className="font-bold lg:text-xl text-white">
+            <h1 className="font-bold text-base lg:text-xl text-white">
               PomeMusic
             </h1>
         </div>
@@ -90,7 +92,7 @@ export default function Menubar({user,activeItem}: MenubarProps) {
                     <img src={user?.avatar} className="w-10 h-10 rounded-full" />
                 </button>
                 {menu && (
-                    <div className="absolute right-2 mt-10 w-32 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <div className="absolute right-2 mt-10 w-32 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                         <div className="py-1 rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <a href="/profile" className="flex items-center px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem">
                             <UserIcon className="mr-2 text-pome" /> Profile

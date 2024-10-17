@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <Layout menuActiveItem="home">
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center">
         <CarouselComponent videos={videos} />
       </div>
       <YoutubeGrid />

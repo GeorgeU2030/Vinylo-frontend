@@ -6,12 +6,12 @@
 }
   
 .button:hover {
-    background-color: #ff6140;
+    background-color: #ff502d;
     color: #EDF2F4;
     border-color: #ff6140;
 }
   
 .button-active {
-    background-color: #ff6140;
+    background-color: #ff502d;
     color: #EDF2F4;
 }
