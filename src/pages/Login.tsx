@@ -4,6 +4,7 @@ import { AuthContext } from "@/context/AuthContext"
 import { AuthContextType } from "@/interfaces/AuthContextType"
 import { LoginDto } from "@/interfaces/Login"
 import { login } from "@/services/auth"
+import { getSpotifyToken } from "@/services/spotify"
 import { AxiosError } from "axios"
 import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -34,6 +35,8 @@ export default function Login() {
       }
       const response = await login(form)
       loginContext(response.user)
+      const spotifyResponse = await getSpotifyToken()
+      localStorage.setItem("spotifyToken", spotifyResponse)
       navigate("/home")
     }catch(error){
       if (error instanceof AxiosError && error.response) {
